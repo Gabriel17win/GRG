@@ -1,59 +1,124 @@
-html
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LosLessa's - Loja de Roupas</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('10.jpeg');
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1a1a1a;
+      padding: 20px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0 20px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    nav ul li a:hover {
+      color: #33ffcc;
+    }
+    main {
+      padding: 50px;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 50px;
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    section h2 {
+      margin-top: 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input[type="text"], input[type="email"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #33ffcc;
+      color: #111;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    input[type="submit"]:hover {
+      background-color: #00e6b8;
+    }
+  </style>
 </head>
 <body>
   <header>
+    <img src="10.jpeg" alt="CybersisTech Logo" width=180px height=100px>
     <nav>
       <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#criacao-sites">Criação de Sites</a></li>
+        <li><a href="#manutencao-computadores">Manutenção de Computadores</a></li>
+        <li><a href="#formatacao">Formatação</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
-    <h1>LosLessa's - Loja de Roupas</h1>
   </header>
-
-  <section id="inicio">
-    <h2>Bem-vindo à LosLessa's</h2>
-    <p>Encontre as melhores roupas para todas as ocasiões.</p>
-    <a href="#produtos" class="btn">Ver Produtos</a>
-  </section>
-
-  <section id="produtos">
-    <h2>Produtos</h2>
-    <div class="product">
-      <img src="imagem1.jpg" alt="Roupa 1">
-      <h3>Roupa 1</h3>
-      <p>Descrição do produto 1.</p>
-      <span class="price">R$ 99,99</span>
-      <a href="#" class="btn">Adicionar ao Carrinho</a>
-    </div>
-    <div class="product">
-      <img src="imagem2.jpg" alt="Roupa 2">
-      <h3>Roupa 2</h3>
-      <p>Descrição do produto 2.</p>
-      <span class="price">R$ 79,99</span>
-      <a href="#" class="btn">Adicionar ao Carrinho</a>
-    </div>
-    <!-- Adicione mais produtos conforme necessário -->
-  </section>
-
-  <section id="contato">
-    <h2>Contato</h2>
-    <form action="enviar.php" method="post">
-      <input type="text" name="nome" placeholder="Seu Nome" required>
-      <input type="email" name="email" placeholder="Seu E-mail" required>
-      <textarea name="mensagem" placeholder="Sua Mensagem" required></textarea>
-      <button type="submit" class="btn">Enviar</button>
-    </form>
-  </section>
-
+  <main>
+    <section id="criacao-sites">
+      <h2>Criação de Sites</h2>
+      <p>Nós construímos experiências digitais que ressoam com o seu público-alvo.</p>
+    </section>
+    <section id="manutencao-computadores">
+      <h2>Manutenção de Computadores</h2>
+      <p>Nossa equipe técnica experiente pode garantir que seus sistemas operem sem problemas.</p>
+    </section>
+    <section id="formatacao">
+      <h2>Formatação</h2>
+      <p>Mantemos as coisas funcionando perfeitamente para você, sem falhas ou erros.</p>
+    </section>
+    <section id="contato">
+      <h2>Contato</h2>
+      <form>
+        <form action="tcc.php" method="POST"></form>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Mensagem:</label>
+        <textarea id="message" name="message" required></textarea>
+        <input type="submit" value="Enviar">
+      </form>
+    </section>
+  </main>
   <footer>
-    <p>&copy; 2023 LosLessa's - Todos os direitos reservados.</p>
+    <p>&copy; 2023 CybersisTech</p>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
