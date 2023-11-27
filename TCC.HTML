@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang ="pt-br">
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <link href="style.css" rel="stylesheet" type="text/css" />
   <style>
@@ -103,18 +103,16 @@
       <p>Mantemos as coisas funcionando perfeitamente para você, sem falhas ou erros.</p>
     </section>
     <section id="contato">
-      <h2>Contato</h2>
-      <form>
-        <form action="tcc.php" method="POST"></form>
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="message">Mensagem:</label>
-        <textarea id="message" name="message" required></textarea>
-        <input type="submit" value="Enviar">
-      </form>
+       <section id="contato">
+        <h1>Contato</h1>
+        <form action="tcc1.php" method="post">
+            <input type="text" name="nome" placeholder="Digite seu nome" required>
+            <input type="text" name="email" placeholder="Digite seu e-mail ou número de celular" required>
+            <textarea name="mensagem" placeholder="Mensagem direta para empresa!" required></textarea>
+            <button type="submit" class="btn">Enviar</button>
+        </form>
     </section>
+
   </main>
   <footer>
     <p>&copy; 2023 CybersisTech</p>
