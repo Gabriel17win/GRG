@@ -1,0 +1,167 @@
+#include <stdio.h>
+#include <stdbool.h> // Necessário para usar o tipo booleano 'bool'
+
+// --- Definições de Constantes ---
+// Usar constantes torna o código mais fácil de entender e modificar
+#define TAMANHO_TABULEIRO 10 // O tabuleiro terá 10 linhas e 10 colunas
+#define TAMANHO_NAVIO 3      // Os navios ocuparão 3 posições
+#define AGUA 0               // Representa uma posição de "Água" no tabuleiro
+#define NAVIO 3              // Representa uma posição ocupada por um "Navio"
+
+// --- Variáveis Globais (A Matriz do Tabuleiro) ---
+// Uma matriz 10x10 para guardar o estado do jogo
+int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+
+// --------------------------------------------------------------------------
+// FUNÇÃO 1: Inicializar o Tabuleiro
+// --------------------------------------------------------------------------
+// Preenche todas as posições da matriz com o valor 0 (Água).
+void inicializar_tabuleiro() {
+    printf("-> Inicializando tabuleiro com AGUA (0).\n");
+    // O primeiro 'for' percorre as LINHAS (i)
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        // O segundo 'for' percorre as COLUNAS (j) dentro de cada linha
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            tabuleiro[i][j] = AGUA; // Define o valor 0 (Água) para a posição [i][j]
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// FUNÇÃO 2: Validar Posição do Navio
+// --------------------------------------------------------------------------
+// Verifica se o navio cabe no tabuleiro e se não está sobrepondo outro navio.
+bool validar_posicao(int linha_inicio, int coluna_inicio, char orientacao) {
+    
+    // 1. Verificar Limites do Tabuleiro
+    if (orientacao == 'H' || orientacao == 'h') { // Se o navio for Horizontal
+        // Verifica se a posição final (coluna inicial + tamanho do navio) não ultrapassa 10
+        if (coluna_inicio + TAMANHO_NAVIO > TAMANHO_TABULEIRO) {
+            printf("  [ERRO] Navio horizontal (inicia em %d) ultrapassa a borda direita.\n", coluna_inicio);
+            return false;
+        }
+    } else if (orientacao == 'V' || orientacao == 'v') { // Se o navio for Vertical
+        // Verifica se a posição final (linha inicial + tamanho do navio) não ultrapassa 10
+        if (linha_inicio + TAMANHO_NAVIO > TAMANHO_TABULEIRO) {
+            printf("  [ERRO] Navio vertical (inicia em %d) ultrapassa a borda inferior.\n", linha_inicio);
+            return false;
+        }
+    } else {
+        printf("  [ERRO] Orientação inválida. Use 'H' ou 'V'.\n");
+        return false;
+    }
+
+    // 2. Verificar Sobreposição de Navios
+    // Percorre cada posição que o navio irá ocupar
+    for (int k = 0; k < TAMANHO_NAVIO; k++) {
+        int linha_atual = linha_inicio;
+        int coluna_atual = coluna_inicio;
+
+        if (orientacao == 'H' || orientacao == 'h') {
+            coluna_atual += k; // Incrementa a coluna para navio horizontal
+        } else {
+            linha_atual += k; // Incrementa a linha para navio vertical
+        }
+
+        // Verifica se a posição no tabuleiro já é ocupada por um navio (valor 3)
+        if (tabuleiro[linha_atual][coluna_atual] == NAVIO) {
+            printf("  [ERRO] Sobreposição detectada em (%d, %d). A posição já é um navio (3).\n", linha_atual, coluna_atual);
+            return false; // Se já houver um navio, a posição é inválida
+        }
+    }
+
+    return true; // Se passar por todas as verificações, a posição é válida
+}
+
+// --------------------------------------------------------------------------
+// FUNÇÃO 3: Posicionar o Navio
+// --------------------------------------------------------------------------
+// Marca as posições do navio na matriz com o valor 3.
+void posicionar_navio(int linha_inicio, int coluna_inicio, char orientacao) {
+    // O 'for' percorre o tamanho do navio (k vai de 0 a 2)
+    for (int k = 0; k < TAMANHO_NAVIO; k++) {
+        if (orientacao == 'H' || orientacao == 'h') {
+            // Horizontal: Mantenha a LINHA e incremente a COLUNA
+            tabuleiro[linha_inicio][coluna_inicio + k] = NAVIO;
+        } else {
+            // Vertical: Mantenha a COLUNA e incremente a LINHA
+            tabuleiro[linha_inicio + k][coluna_inicio] = NAVIO;
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// FUNÇÃO 4: Exibir o Tabuleiro
+// --------------------------------------------------------------------------
+// Imprime a matriz no console de forma organizada.
+void exibir_tabuleiro() {
+    printf("\n==================================\n");
+    printf("   ESTADO ATUAL DO TABULEIRO\n");
+    printf("==================================\n");
+    
+    // Imprime o cabeçalho das colunas (para ajudar a identificar as coordenadas)
+    printf("   ");
+    for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+        printf("%3d", j); // Imprime o número da coluna (0 a 9) com 3 espaços
+    }
+    printf("\n"); // Quebra de linha
+
+    // Imprime o conteúdo do tabuleiro
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        printf("%2d ", i); // Imprime o número da linha (0 a 9)
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            // Imprime o valor na posição (0 para água, 3 para navio)
+            printf("%3d", tabuleiro[i][j]);
+        }
+        printf("\n"); // Quebra de linha no final de cada linha da matriz
+    }
+}
+
+// --------------------------------------------------------------------------
+// FUNÇÃO PRINCIPAL (main)
+// --------------------------------------------------------------------------
+int main() {
+    
+    // 1. Inicializa o Tabuleiro
+    inicializar_tabuleiro();
+
+    // 2. Declaração das Coordenadas e dos Vetores (Navios)
+    
+    // NAVIO 1: Horizontal (Tamanho 3)
+    int n1_linha = 1; // Começa na linha 1
+    int n1_coluna = 2; // Começa na coluna 2. O navio ocupará: (1,2), (1,3), (1,4)
+    char n1_orientacao = 'H';
+
+    // NAVIO 2: Vertical (Tamanho 3)
+    int n2_linha = 5; // Começa na linha 5
+    int n2_coluna = 4; // Começa na coluna 4. O navio ocupará: (5,4), (6,4), (7,4)
+    char n2_orientacao = 'V';
+    
+    // NOTA: Para este nível, o "vetor" é o conjunto de posições (3s) que 
+    // será copiado para a matriz, mas a lógica é implementada no 'posicionar_navio'.
+    
+    printf("\n--- TENTATIVA DE POSICIONAMENTO ---\n");
+
+    // 3. Posicionamento do Navio 1 (Horizontal)
+    printf("\nTentando Navio 1 (H) em (%d, %d)...\n", n1_linha, n1_coluna);
+    if (validar_posicao(n1_linha, n1_coluna, n1_orientacao)) {
+        posicionar_navio(n1_linha, n1_coluna, n1_orientacao);
+        printf("-> SUCESSO! Navio 1 posicionado.\n");
+    } else {
+        printf("-> FALHA! Navio 1 NÃO foi posicionado devido a um erro de validação.\n");
+    }
+
+    // 4. Posicionamento do Navio 2 (Vertical)
+    printf("\nTentando Navio 2 (V) em (%d, %d)...\n", n2_linha, n2_coluna);
+    if (validar_posicao(n2_linha, n2_coluna, n2_orientacao)) {
+        posicionar_navio(n2_linha, n2_coluna, n2_orientacao);
+        printf("-> SUCESSO! Navio 2 posicionado.\n");
+    } else {
+        printf("-> FALHA! Navio 2 NÃO foi posicionado devido a um erro de validação.\n");
+    }
+
+    // 5. Exibe o Tabuleiro Final
+    exibir_tabuleiro();
+
+    return 0;
+}
